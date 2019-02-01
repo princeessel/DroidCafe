@@ -6,9 +6,12 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.ContextMenu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
@@ -21,6 +24,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+//        Toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -28,14 +34,14 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
                 Intent intent=new Intent(MainActivity.this,OrderActivity.class);
                 intent.putExtra(EXTRA_MESSAGE,mOrderMessage);
                 startActivity(intent);
             }
         });
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -50,13 +56,29 @@ public class MainActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
+      switch (id){
+          case R.id.action_order:
+             Intent intent=new Intent(MainActivity.this, OrderActivity.class);
+              intent.putExtra(EXTRA_MESSAGE,mOrderMessage);
+              startActivity(intent);
+              return true;
+//              displayToast(getString(R.string.action_order_message));
+//              return true;
+          case R.id.action_status:
+              displayToast(getString(R.string.action_status_message));
+              return true;
+          case R.id.action_favorites:
+              displayToast(getString(R.string.action_favorites_message));
+              return true;
+          case R.id.action_contact:
+              displayToast(getString(R.string.action_contact_message));
+              return true;
+          default:
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+      }
 
-        return super.onOptionsItemSelected(item);
+       return super.onOptionsItemSelected(item);
+
     }
 
     public void displayToast(String message) {
